@@ -26,6 +26,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="database_generator.py" />
+    <Compile Include="sandbox.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{33c9a1a4-e15a-4288-88a5-a98664f812f9}\2.7" />
