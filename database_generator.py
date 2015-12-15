@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 import os	
 import eyed3
 
@@ -24,7 +24,7 @@ for file in os.listdir(os.getcwd()):
 	if file.endswith(".mp3"):
 		audiofile = eyed3.load(file)
 		conn.execute('INSERT INTO MUSIC (ID, ARTIST, ALBUM, TITLE) \
-		VALUES ({},"{}","{}","{}")'.format(audiofile.tag.track_num[0],audiofile.tag.artist,audiofile.tag.album, audiofile.tag.title));
+		VALUES ({},"{}","{}","{}",{})'.format(count,audiofile.tag.artist,audiofile.tag.album, audiofile.tag.title,audiofile.tag.track_num[0]));
 
 conn.commit()
 conn.close()
