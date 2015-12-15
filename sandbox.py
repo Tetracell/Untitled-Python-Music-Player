@@ -1,4 +1,4 @@
-# Import the os module, for the os.walk function
+﻿# Import the os module, for the os.walk function
 import os
  
 # Set the directory you want to start from
