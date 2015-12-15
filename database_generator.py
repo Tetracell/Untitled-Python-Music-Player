@@ -18,10 +18,11 @@ for file in os.listdir(music_dir):
 		
 conn.execute('''CREATE TABLE MUSIC
 				(ID INT PRIMARY KEY NOT NULL,
-				ARTIST			TEXT	NOT NULL,
-				ALBUM			TEXT	NOT NULL,
-				TITLE			TEXT	NOT NULL,
-                TRACK           INT);''')
+				ARTIST			TEXT,
+				ALBUM			TEXT,
+				TITLE			TEXT,
+                TRACK           TEXT,
+                FILENAME        TEXT);''')
 
 '''				
 for file in os.listdir(os.getcwd()):
@@ -44,17 +45,25 @@ for dirName, subdirList, fileList in os.walk(music_dir):
 		        VALUES ({},"{}","{}","{}",{})'.format(count,unicode(audiofile.tag.artist),unicode(audiofile.tag.album), unicode(audiofile.tag.title),audiofile.tag.track_num[0]));
                 count += 1
                 '''
-                conn.execute('INSERT INTO MUSIC (ID, ARTIST, ALBUM, TITLE, TRACK) \
-                VALUES (?, ?, ?, ?, ?)', (count,audiofile.tag.artist,audiofile.tag.album, audiofile.tag.title,audiofile.tag.track_num[0]))
-                count += 1
-
+                conn.execute('INSERT INTO MUSIC (ID, ARTIST, ALBUM, TITLE, TRACK, FILENAME) \
+                VALUES (?, ?, ?, ?, ?, ?)', (count,audiofile.tag.artist,audiofile.tag.album, audiofile.tag.title,audiofile.tag.track_num[0], os.path.join(dirName, fname)))
+            
             except:
-                problem.write(os.path.join(dirName, fname))
-                problem.write(u'\r\n')
-                problem.write(unicode(sys.exc_info()[0]))
-                problem.write(u'\r\n')
-                problem.flush()   
+                pass
+
+            count += 1   
 
 conn.commit()
 conn.close()
 problem.close()
+
+''' Orphaned Code
+
+For checking exceptions:
+
+problem.write(os.path.join(dirName, fname))
+                problem.write(u'\r\n')
+                problem.write(unicode(sys.exc_info()[0]))
+                problem.write(u'\r\n')
+                problem.flush()
+'''
