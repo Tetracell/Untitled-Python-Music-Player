@@ -40,11 +40,6 @@ for dirName, subdirList, fileList in os.walk(music_dir):
         if fname.endswith(".mp3"):
             audiofile = eyed3.load(os.path.join(dirName,fname))
             try:
-                '''
-                conn.execute('INSERT INTO MUSIC (ID, ARTIST, ALBUM, TITLE, TRACK) \
-		        VALUES ({},"{}","{}","{}",{})'.format(count,unicode(audiofile.tag.artist),unicode(audiofile.tag.album), unicode(audiofile.tag.title),audiofile.tag.track_num[0]));
-                count += 1
-                '''
                 conn.execute('INSERT INTO MUSIC (ID, ARTIST, ALBUM, TITLE, TRACK, FILENAME) \
                 VALUES (?, ?, ?, ?, ?, ?)', (count,audiofile.tag.artist,audiofile.tag.album, audiofile.tag.title,audiofile.tag.track_num[0], os.path.join(dirName, fname)))
             
@@ -56,14 +51,3 @@ for dirName, subdirList, fileList in os.walk(music_dir):
 conn.commit()
 conn.close()
 problem.close()
-
-''' Orphaned Code
-
-For checking exceptions:
-
-problem.write(os.path.join(dirName, fname))
-                problem.write(u'\r\n')
-                problem.write(unicode(sys.exc_info()[0]))
-                problem.write(u'\r\n')
-                problem.flush()
-'''
