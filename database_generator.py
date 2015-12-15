@@ -4,7 +4,7 @@ import eyed3
 
 
 conn = sqlite3.connect('E:\Music\music.db')
-music_dir = 'E:\Music'
+music_dir = u'E:\Music'
 
 db_exist = False
 
